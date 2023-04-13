@@ -1,0 +1,39 @@
+function openChatbot() {
+  // Create a popup window for the chatbot
+  var chatWindow = window.open("", "GregTheMaster", "width=400,height=500");
+
+  // Add a header to the chat window
+  chatWindow.document.write("<h1>Chatbot</h1>");
+
+  // Create a form for user input
+  chatWindow.document.write("<form onsubmit='return askGoogle(this.query.value)'>");
+  chatWindow.document.write("<input type='text' name='query' placeholder='Ask me anything...'>");
+  chatWindow.document.write("<input type='submit' value='Ask'>");
+  chatWindow.document.write("</form>");
+
+  // Add a div for chatbot responses
+  chatWindow.document.write("<div id='response'></div>");
+}
+
+function askGoogle(query) {
+  // Send a request to Google to get the search results
+  var xhr = new XMLHttpRequest();
+  xhr.open("GET", "https://www.google.com/search?q=" + encodeURIComponent(query));
+  xhr.onload = function() {
+    // Parse the response to get the search results
+    var parser = new DOMParser();
+    var doc = parser.parseFromString(xhr.responseText, "text/html");
+    var results = doc.querySelectorAll(".g");
+
+    // Display the first search result in the chatbot window
+    var chatWindow = window.open("", "Chatbot");
+    chatWindow.document.getElementById("response").innerHTML = results[0].innerHTML;
+  };
+  xhr.send();
+
+  // Clear the input field
+  document.querySelector("input[name='query']").value = "";
+
+  // Prevent the form from submitting
+  return false;
+}

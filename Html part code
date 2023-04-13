@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Chatbot Example</title>
+  </head>
+  <body>
+    <button onclick="openChatbot()">Open Chatbot</button>
+    <div id="chatbot"></div>
+
+    <script src="chatbot.js"></script>
+  </body>
+</html>
